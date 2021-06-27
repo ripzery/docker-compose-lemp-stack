@@ -1,11 +1,11 @@
 version: '3'
 services:
     php:
-        # image: 'php:7.2-fpm'
+        image: 'php:7.2-fpm'
         build:
             context: ./docker
             dockerfile: php.Dockerfile
-        container_name: ${APP_NAME:?err}-php
+        container_name: ${APP_NAME}-php
         volumes:
             - './app:/var/www/html'
         depends_on:
@@ -13,7 +13,7 @@ services:
 
     nginx:
         image: nginx:latest
-        container_name: ${APP_NAME:?err}-nginx
+        container_name: ${APP_NAME}-nginx
         ports:
             - '80:80'
             - '443:443'
@@ -24,7 +24,7 @@ services:
             - './config/nginx:/etc/nginx/conf.d'
 
     mariadb:
-        image: mariadb:10.3.9
+        image: mariadb:10.4.20
         container_name: ${APP_NAME:?err}-mariadb
         restart: 'on-failure'
         environment:
